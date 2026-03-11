@@ -124,7 +124,12 @@ if st.button("Chạy dự đoán"):
     final_input = apply_full_preprocessing(raw_data, model_features)
     
     # Dự đoán
-    pred = model.predict(final_input)[0]
+    # Sử dụng .item() hoặc [0] thêm lần nữa để lấy đúng giá trị số bên trong
+    prediction_raw = model.predict(final_input)
+    pred = int(prediction_raw.flatten()[0]) 
+
+    # Sau đó dòng hiển thị sẽ chạy mượt mà
+    st.markdown(f"### Kết quả: :{colors[pred]}[{labels[pred]}]")
     prob = model.predict_proba(final_input)[0]
     
     # Hiển thị kết quả
